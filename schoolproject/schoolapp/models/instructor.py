@@ -8,19 +8,17 @@ from django.dispatch import receiver
 class Instructor(models.Model): 
     # Instructors are the user, therefore a one to one relationship
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    first_name = models.CharField(max_length=50)
-    last_name = models.CharField(max_length=50)
-    slack_handle = models.CharField(max_length=50)
-    specialty = models.CharField(max_length=50)
+    slack_handle = models.CharField(max_length=50, null=True)
+    specialty = models.CharField(max_length=50, null=True)
     # cohort_id value is a foreign key associated with the ID of cohort
-    cohort = models.ForeignKey(Cohort, on_delete=models.CASCADE)
+    cohort = models.ForeignKey(Cohort, on_delete=models.CASCADE, null=True)
 
 # When a user is created, a matching Instructor is created
 @receiver(post_save, sender=User)
 def create_instructor(sender, instance, created, **kwargs):
     if created: 
         Instructor.objects.create(user=instance)
-# When a user is saved, a matching User is saved
+# When a user is saved, a matching Instructor is saved
 @receiver(post_save, sender=User)
 def save_instructor(sender, instance, **kwargs):
     instance.instructor.save()
