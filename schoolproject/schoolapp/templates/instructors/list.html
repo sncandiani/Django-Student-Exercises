@@ -1,0 +1,10 @@
+{%extends "shared/base.html"%}
+
+{%block content%}
+<h1>Instructors</h1>
+    <ul>
+        {%for instructor in instructors%}
+        <li>{{instructor.user.first_name}} {{instructor.user.last_name}}</li>
+        {%endfor%}
+    </ul>
+{%endblock%}

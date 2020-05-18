@@ -6,7 +6,7 @@ class Student(models.Model):
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     slack_handle = models.CharField(max_length=50)
-    cohort = models.ForeignKey(Cohort, on_delete=models.CASCADE)
+    cohort = models.ForeignKey(Cohort, on_delete=models.CASCADE, null=True)
     
     class Meta:
         verbose_name = ("Student")
